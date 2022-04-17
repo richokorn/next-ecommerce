@@ -4,7 +4,6 @@ exports.up = async (sql) => {
 			id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 			name varchar(255) NOT NULL,
 			price integer NOT NULL,
-			priceString varchar(255) NOT NULL,
 			type varchar(255) NOT NULL,
 			title varchar(255) NOT NULL,
 			description varchar(255) NOT NULL
