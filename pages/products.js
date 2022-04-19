@@ -2,12 +2,54 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Layout from '../components/Layout';
 import { productCard } from '../components/styles';
+import {
+  addToCart,
+  cookieChecker,
+  getCartCount,
+  minusFromCart,
+} from '../util/cartFunctions';
 import { getProducts } from '../util/database';
 
 export default function Products(props) {
+  cookieChecker();
+
+  const productList = props.products.map((product) => (
+    <div key={product.id} css={productCard}>
+      <div>
+        <Image
+          src={`/img/${product.name}.jpg`}
+          alt={product.title}
+          width={200}
+          height={200}
+          layout="responsive"
+        />
+      </div>
+      <h2>{product.title}</h2>
+      <p>{product.description}</p>
+      <p>€{(product.price / 100).toFixed(2)}</p>
+      <button
+        onClick={() => {
+          addToCart(props.cart, product.id);
+          props.setCartCount(getCartCount(props.cart));
+        }}
+      >
+        Add to Cart
+      </button>
+      <button
+        onClick={() => {
+          minusFromCart(props.cart, product.id);
+          props.setCartCount(getCartCount(props.cart));
+        }}
+        disabled={product.quantity === 0}
+      >
+        Remove From Cart
+      </button>
+    </div>
+  ));
+
   return (
     <div>
-      <Layout>
+      <Layout cartCount={props.cartCount}>
         <Head>
           <title>Products</title>
           <meta description="Products, Prices, Descriptions" />
@@ -20,32 +62,7 @@ export default function Products(props) {
             justifyContent: 'space-around',
           }}
         >
-          {props.products.map((product) => {
-            return (
-              <div css={productCard} key={product.id}>
-                <Image
-                  src={`/img/${product.name}.jpg`}
-                  alt={product.name}
-                  width="400"
-                  height="400"
-                />
-
-                <hr />
-                <h2>{product.title}</h2>
-                <p className="description">{product.description}</p>
-                <hr />
-                <p className="price">€{(product.price / 100).toFixed(2)}</p>
-                <div className="rowWrapper">
-                  <button className="cartButton" onClick={() => null}>
-                    Add To Cart
-                  </button>
-                  <button className="cartButton" onClick={() => null}>
-                    Remove From Cart
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+          {productList}
         </div>
       </Layout>
     </div>
@@ -68,3 +85,45 @@ export async function getServerSideProps() {
     },
   };
 }
+
+/* old code
+
+          {props.products.map((product) => {
+            return (
+              <div css={productCard} key={product.id}>
+                <Image
+                  src={`/img/${product.name}.jpg`}
+                  alt={product.name}
+                  width="400"
+                  height="400"
+                />
+
+                <hr />
+                <h2>{product.title}</h2>
+                <p className="description">{product.description}</p>
+                <hr />
+                <p className="price">€{(product.price / 100).toFixed(2)}</p>
+                <div className="rowWrapper">
+                  <button
+                    className="cartButton"
+                    onClick={() => {
+                      props.setCart(addToCart(props.cart, product));
+                      props.setCartCount(getCartCount(props.cart));
+                    }}
+                  >
+                    Add To Cart
+                  </button>
+                  <button
+                    className="cartButton"
+                    onClick={() => {
+                      props.setCart(minusFromCart(props.cart, product));
+                      props.setCartCount(getCartCount(props.cart));
+                    }}
+                  >
+                    Remove From Cart
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+          */

@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import Head from 'next/head';
 import Layout from '../components/Layout';
 import {
@@ -6,8 +7,11 @@ import {
   heroDividerWrapper,
   pIntro,
 } from '../components/styles';
+import { cookieChecker } from '../util/cartFunctions';
 
 export default function Home(props) {
+  cookieChecker();
+
   return (
     <Layout cartCount={props.cartCount}>
       <Head>

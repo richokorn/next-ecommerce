@@ -1,9 +1,12 @@
 import Head from 'next/head';
 import Layout from '../components/Layout';
+import { cookieChecker } from '../util/cartFunctions';
 
-export default function About() {
+export default function About(props) {
+  cookieChecker();
+
   return (
-    <Layout>
+    <Layout cartCount={props.cartCount}>
       <Head>
         <title>About</title>
         <meta name="about" />

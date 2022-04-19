@@ -1,43 +1,7 @@
-import Cookies from 'js-cookie';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { headerLeft, headerRight, headerWrapper } from './styles';
 
-export default function Header() {
-  // The cart cookie is an object with the following structure:
-  // {
-  //   item1: 1,
-  //   item2: 2,
-  //   item3: 5,
-  // }
-  // The cartCount is the sum of the values of the cart cookie.
-  const exampleCart = {
-    item1: 1,
-    item2: 5,
-    item3: 10,
-  };
-
-  Cookies.set('cart', JSON.stringify(exampleCart), {
-    SameSite: 'lax',
-    secure: true,
-    expires: 1,
-  });
-
-  const [cartCount, setCartCount] = useState(0);
-  const cartCookie = Cookies.get('cart');
-  console.log('cartCookie', cartCookie);
-
-  useEffect(() => {
-    if (cartCookie) {
-      const totals = Object.values(JSON.parse(cartCookie)).reduce(
-        (acc, val) => acc + val,
-        0,
-      );
-      setCartCount(totals);
-      console.log('totals', totals);
-    }
-  }, [cartCookie]);
-
+export default function Header(props) {
   return (
     <header>
       <div css={headerWrapper}>
@@ -82,7 +46,7 @@ export default function Header() {
           <Link href="/checkout">
             <a>
               <img src="/img/cart.png" alt="" />
-              <div className="cartCount">{cartCount}</div>
+              <div className="cartCount">{props.cartCount}</div>
             </a>
           </Link>
         </div>

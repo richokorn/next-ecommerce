@@ -1,13 +1,14 @@
 import camelcaseKeys from 'camelcase-keys';
 import { config } from 'dotenv-safe';
 import postgres from 'postgres';
-import setPostgresDefaultsOnHeroku from './setPostgresDefaultsOnHeroku.js';
 
-// setPostgresDefaultsOnHeroku();
+// import setPostgresDefaultsOnHeroku from './setPostgresDefaultsOnHeroku.js';
 
 // Read the environment variables from the .env
 // file, which will then be available for all following code
 config();
+
+// setPostgresDefaultsOnHeroku();
 
 // Type needed for the connection function below
 declare module globalThis {
@@ -60,4 +61,11 @@ export async function getProductById(id: number) {
     SELECT * FROM products WHERE id = ${id};
   `;
   return camelcaseKeys(product);
+}
+
+export async function getProductsByCartProducts(cartProducts: number[]) {
+  const products = await sql<Product[]>`
+    SELECT * FROM products WHERE id IN (${cartProducts});
+  `;
+  return products.map((product) => camelcaseKeys(product));
 }
