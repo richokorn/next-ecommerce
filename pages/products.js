@@ -29,7 +29,7 @@ export default function Products(props) {
       <p>€{(product.price / 100).toFixed(2)}</p>
       <button
         onClick={() => {
-          addToCart(props.cart, product.id);
+          addToCart(props.cart, product);
           props.setCartCount(getCartCount(props.cart));
         }}
       >
@@ -37,7 +37,7 @@ export default function Products(props) {
       </button>
       <button
         onClick={() => {
-          minusFromCart(props.cart, product.id);
+          minusFromCart(props.cart, product);
           props.setCartCount(getCartCount(props.cart));
         }}
         disabled={product.quantity === 0}

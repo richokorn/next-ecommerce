@@ -1,5 +1,8 @@
+import { css } from '@emotion/react';
 import Link from 'next/link';
 import { headerLeft, headerRight, headerWrapper } from './styles';
+
+export const aa = css``;
 
 export default function Header(props) {
   return (
@@ -9,7 +12,7 @@ export default function Header(props) {
         <div css={headerLeft}>
           <Link href="/">
             <a>
-              <img src="/img/logo.png" alt="" />
+              <img src="/img/logo-crop.png" alt="" style={{ height: '2em' }} />
               <p>merched</p>
             </a>
           </Link>
@@ -24,25 +27,6 @@ export default function Header(props) {
           <Link href="/products">
             <a>Merch</a>
           </Link>
-          {/* <Link href="https://upleveled.io/#courses">
-            <a>Courses</a>
-          </Link>
-          <Link href="https://upleveled.io/graduates">
-            <a>Graduates</a>
-          </Link>
-          <Link href="https://www.eventbrite.at/o/upleveled-30041446326">
-            <a>Events</a>
-          </Link>
-          <Link href="https://upleveled.io/for-employers">
-            <a>For Employers</a>
-          </Link> */}
-          {/* <button
-            onClick={() => {
-              Cookies.remove('cart');
-            }}
-          >
-            Delete Cookies
-          </button> */}
           <Link href="/checkout">
             <a>
               <img src="/img/cart.png" alt="" />

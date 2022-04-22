@@ -1,5 +1,34 @@
 import { css } from '@emotion/react';
 
+// Remember the golden rule: Pos -> Box -> Aes
+// Pos: Positioning and display.
+// Box: Box Model and how it is sized/padded/margined.
+// Aes: Aesthetics and how it looks, Stuff inside.
+export const xWrapper = css`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const yWrapper = css`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const headerWrapper = css`
+  position: fixed;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  display: flex;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 3px 0px;
+  margin: 0;
+  width: 100%;
+  height: min-content;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  background-color: rgb(255, 255, 255);
+`;
+
 export const heroDividerWrapper = css`
   position: relative;
   margin-top: 20vh;
@@ -7,9 +36,9 @@ export const heroDividerWrapper = css`
   margin-right: auto 0;
 
   display: flex;
-  justify-self: middle;
+  justify-self: center;
 
-  max-width: 60vw;
+  max-width: 1310px;
 `;
 
 export const heroDividerContentColumn = css`
@@ -41,25 +70,7 @@ export const mainStyle = css`
   margin-top: 5em;
   margin-left: 20vw;
   margin-right: 20vw;
-  max-width: 50vw;
-`;
-
-export const headerWrapper = css`
-  position: fixed;
-  z-index: 50;
-  top: 0;
-  left: 0;
-
-  display: flex;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 3px 0px;
-  margin: 0;
-  width: 100%;
-  height: min-content;
-
-  padding-bottom: 20px;
-  padding-top: 20px;
-
-  background-color: rgb(255, 255, 255);
+  max-width: 1310px;
 `;
 
 export const headerLeft = css`
@@ -118,15 +129,14 @@ export const headerRight = css`
     /* box */
     display: flex;
     justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    line-height: 32px;
+    align-content: center;
+    width: 2em;
 
     /* aes */
     background: rgb(229, 23, 107);
     color: white;
     font-weight: bold;
-    border-radius: 50%;
+    border-radius: 23%;
   }
 
   a {

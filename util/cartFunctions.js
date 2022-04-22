@@ -91,6 +91,7 @@ export function addToCart(cart, product) {
       secure: true,
       expires: 1,
     });
+    console.log(cart);
     return cart;
   }
 }

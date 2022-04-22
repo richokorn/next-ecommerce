@@ -6,13 +6,16 @@ import { cookieChecker, getCartCount } from '../util/cartFunctions';
 function MyApp({ Component, pageProps }) {
   cookieChecker();
   const [cart, setCart] = useState([]);
-  const [cartCount, setCartCount] = useState(0);
+  const [cartCount, setCartCount] = useState();
   cookieChecker();
 
   // in the following useEffect we want to set the cart from the cartCookie if it exists
   // and we want to derive the cartCount from the cart
   useEffect(() => {
-    setCart(JSON.parse(Cookies.get('cart')));
+    cookieChecker();
+    const newestCart = JSON.parse(Cookies.get('cart'));
+    setCart(newestCart);
+    setCartCount(getCartCount(newestCart));
     console.log('_app.js useEffect Trigger');
   }, []);
 
